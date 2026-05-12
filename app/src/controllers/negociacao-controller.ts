@@ -24,7 +24,7 @@ export class NegociacaoController {
 
     constructor() {
         const dados = localStorage.getItem('negociacoes');
-        console.log('dados', JSON.stringify(dados)); 
+        // console.log('dados', JSON.stringify(dados)); 
 
         if (dados) {
             const negociacoesSalvas = JSON.parse(dados);
@@ -43,14 +43,18 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
-    @inspect
-    @logarTempoDeExecucao()
+    // @inspect
+    // @logarTempoDeExecucao()
     public adiciona(): void {
+        console.log('mmmaaaaa', this.inputValor.value);
+
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
             this.inputValor.value
         );
+
+        console.log('negociacao', negociacao);  
 
         if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView
@@ -115,8 +119,6 @@ export class NegociacaoController {
     }
 
     private salvarLocalStorage( ): void {
-        console.log('salvando localStorage', JSON.stringify(this.negociacoes.lista()));
-
         localStorage.setItem(
             'negociacoes',
             JSON.stringify([...this.negociacoes.lista()])

@@ -5,8 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { domInjector } from '../decorators/dom-injector.js';
-import { inspect } from '../decorators/inspect.js';
-import { logarTempoDeExecucao } from '../decorators/logar-tempo-de-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
@@ -21,7 +19,6 @@ export class NegociacaoController {
         this.mensagemView = new MensagemView('#mensagemView');
         this.negociacoesService = new NegociacoesService();
         const dados = localStorage.getItem('negociacoes');
-        console.log('dados', JSON.stringify(dados));
         if (dados) {
             const negociacoesSalvas = JSON.parse(dados);
             negociacoesSalvas.forEach((negociacao) => {
@@ -31,7 +28,9 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
+        console.log('mmmaaaaa', this.inputValor.value);
         const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
+        console.log('negociacao', negociacao);
         if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView
                 .update('Apenas negociações em dias úteis são aceitas');
@@ -79,7 +78,6 @@ export class NegociacaoController {
         this.mensagemView.update('Negociação adicionada com sucesso');
     }
     salvarLocalStorage() {
-        console.log('salvando localStorage', JSON.stringify(this.negociacoes.lista()));
         localStorage.setItem('negociacoes', JSON.stringify([...this.negociacoes.lista()]));
     }
 }
@@ -92,7 +90,3 @@ __decorate([
 __decorate([
     domInjector('#valor')
 ], NegociacaoController.prototype, "inputValor", void 0);
-__decorate([
-    inspect,
-    logarTempoDeExecucao()
-], NegociacaoController.prototype, "adiciona", null);

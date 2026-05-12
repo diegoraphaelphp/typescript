@@ -1,11 +1,11 @@
-export function formatarMoeda(valor: number): string {
+function formatarMoeda(valor: number): string {
     return valor.toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL'
     });
 }
 
-export function mascaraMoeda(campo: HTMLInputElement, evento: KeyboardEvent ): void {
+function mascaraMoeda(campo: HTMLInputElement, evento: KeyboardEvent ): void {
     const tecla = evento.which || evento.keyCode;
 
     // Permite apenas números
@@ -23,15 +23,18 @@ export function mascaraMoeda(campo: HTMLInputElement, evento: KeyboardEvent ): v
     evento.preventDefault();
 }
 
-export function moedaBanco(valor: string): string {
-    console.log('valoresxxxx', valor);
-
-    return valor
-        .replace(/\./g, '')
-        .replace(',', '.');
+function moedaBanco(valor: string): string {
+    console.log('moedaBanco', valor);
+    return valor.replace(/\./g, '').replace(',', '.');
 }
 
-export function formatarData(data: Date): string {
-    console.log('dataaaaa', data);
+function formatarData(data: Date): string {
     return data.toLocaleDateString();
 }
+
+export { 
+    formatarMoeda, 
+    mascaraMoeda, 
+    moedaBanco, 
+    formatarData
+};

@@ -1,10 +1,10 @@
-export function formatarMoeda(valor) {
+function formatarMoeda(valor) {
     return valor.toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL'
     });
 }
-export function mascaraMoeda(campo, evento) {
+function mascaraMoeda(campo, evento) {
     const tecla = evento.which || evento.keyCode;
     if (tecla < 48 || tecla > 57) {
         evento.preventDefault();
@@ -18,13 +18,11 @@ export function mascaraMoeda(campo, evento) {
     campo.value = valor;
     evento.preventDefault();
 }
-export function moedaBanco(valor) {
-    console.log('valoresxxxx', valor);
-    return valor
-        .replace(/\./g, '')
-        .replace(',', '.');
+function moedaBanco(valor) {
+    console.log('moedaBanco', valor);
+    return valor.replace(/\./g, '').replace(',', '.');
 }
-export function formatarData(data) {
-    console.log('dataaaaa', data);
+function formatarData(data) {
     return data.toLocaleDateString();
 }
+export { formatarMoeda, mascaraMoeda, moedaBanco, formatarData };

@@ -30,11 +30,9 @@ valor_moeda.addEventListener('keypress', (evento: KeyboardEvent) => {
 const botaoLimpar = document.querySelector('#botao-limpar');
 
 if (botaoLimpar){
-    console.log('botão limpar encontrado', botaoLimpar);
-
-    botaoLimpar.addEventListener('click', () => {    
+    botaoLimpar.addEventListener('click', (event: Event) => {    
+        event.preventDefault();
         localStorage.clear();
-        console.log('limpando localStorage');
         location.reload();
     });
 }else{

@@ -4,8 +4,8 @@ import { moedaBanco } from '../utils/funcoes.js';
 export class Negociacao implements Modelo<Negociacao> {
     constructor(
         private _data: Date, 
-        public readonly quantidade: number, 
-        public readonly valor: number
+        public readonly quantidade: any, 
+        public readonly valor: any
     ) {}
 
     public static criaDe(dataString: string, quantidadeString: string, valorString: string): Negociacao {
@@ -13,13 +13,13 @@ export class Negociacao implements Modelo<Negociacao> {
         // const date = new Date(dataString.replace(exp, ','));
         const date = new Date(dataString);
         const quantidade = parseInt(quantidadeString);
-        const valor = parseFloat(valorString);
-        // const valor = parseFloat(moedaBanco(valorString));
-        return new Negociacao(date, quantidade, valor);
+        // const valor = parseFloat(valorString).toFixed(2);
+        // console.log('hehehehe', valorString);
+        return new Negociacao(date, quantidade, valorString);
     }
 
     get volume(): number {
-        return this.quantidade * this.valor;
+        return this.quantidade * Number(moedaBanco(this.valor));
     }
 
     get data(): Date {
