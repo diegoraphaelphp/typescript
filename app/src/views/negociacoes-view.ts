@@ -27,7 +27,7 @@ export class NegociacoesView extends View<Negociacoes> {
                     registros++;
 
                     return `
-                        <tr class="table-primary">
+                        <tr>
                             <td class="text-center">${this.formatar(negociacao.data)}</td>
                             <td class="text-center">${negociacao.quantidade}</td>
                             <td class="text-right">${formatarMoeda(negociacao.valor)}</td>
