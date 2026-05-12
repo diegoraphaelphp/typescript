@@ -1,4 +1,5 @@
 import { NegociacaoController } from './controllers/negociacao-controller.js';
+import { mascaraMoeda } from './utils/funcoes.js';
 
 const controller = new NegociacaoController();
 const form = document.querySelector('.form');
@@ -19,3 +20,9 @@ if (botaoImporta) {
 } else {
     throw Error('Botão importa não foi encontrado');
 }
+
+const valor_moeda = document.querySelector('.valor-moeda') as HTMLInputElement;
+
+valor_moeda.addEventListener('keypress', (evento: KeyboardEvent) => {
+    mascaraMoeda(valor_moeda, evento);
+});

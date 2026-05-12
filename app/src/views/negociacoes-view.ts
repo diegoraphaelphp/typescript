@@ -1,6 +1,6 @@
 import { escapar } from '../decorators/escapar.js';
 import { Negociacoes } from '../models/negociacoes.js';
-import { formatarMoeda } from '../utils/funcoes.js';
+import { formatarMoeda, mascaraMoeda } from '../utils/funcoes.js';
 import { View } from './view.js';
 
 export class NegociacoesView extends View<Negociacoes> {
@@ -42,8 +42,7 @@ export class NegociacoesView extends View<Negociacoes> {
                     <th colspan="2" class="text-right">${formatarMoeda(calculado)}</th>
                 </tr>
             </tfoot>
-        </table>
-        `;
+        </table>`;
     }
 
     private formatar(data: Date): string {

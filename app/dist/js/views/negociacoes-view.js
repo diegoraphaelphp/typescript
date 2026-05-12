@@ -43,8 +43,7 @@ export class NegociacoesView extends View {
                     <th colspan="2" class="text-right">${formatarMoeda(calculado)}</th>
                 </tr>
             </tfoot>
-        </table>
-        `;
+        </table>`;
     }
     formatar(data) {
         return new Intl.DateTimeFormat()
@@ -54,4 +53,3 @@ export class NegociacoesView extends View {
 __decorate([
     escapar
 ], NegociacoesView.prototype, "template", null);
-//# sourceMappingURL=negociacoes-view.js.map
