@@ -15,6 +15,12 @@ export function mascaraMoeda(campo, evento) {
     valor = (parseFloat(valor) / 100).toFixed(2);
     valor = valor.replace('.', ',');
     valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    campo.value = 'R$ ' + valor;
+    campo.value = valor;
     evento.preventDefault();
+}
+export function moedaBanco(valor) {
+    console.log('valor', valor);
+    return valor
+        .replace(/\./g, '')
+        .replace(',', '.');
 }

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Negociações</title>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link 
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+/>
 </head>
 
 <body class="container">
@@ -29,18 +33,16 @@
             <label for="valor">Valor</label>
             <input id="valor" type="text" class="form-control valor-moeda"  min="0.01" step="0.01" value="0,00" required />
         </div>
-        
-        <button class="btn btn-primary" type="submit">Incluir</button>
-        <button 
-            id="botao-importa" 
-            class="btn btn-primary">
-            Importar
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-plus-square"></i> Adicionar
+        </button>
+        <button id="botao-importa" class="btn btn-primary">
+            <i class="fas fa-file-import"></i> Importar
         </button>
     </form>
     <br>
     <br>
     <div id="negociacoesView"></div>
-    
     <script type="module" src="js/app.js"></script>
 </body>
 </html>

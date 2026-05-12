@@ -15,7 +15,7 @@ export class NegociacoesView extends View {
         return `
         <table class="table table-hover table-bordered">
             <thead>
-                <tr>
+                <tr class="table-primary">
                     <th class="text-center">Data</th>
                     <th class="text-center">Quantidade</th>
                     <th class="text-center">Valor</th>
@@ -24,11 +24,11 @@ export class NegociacoesView extends View {
             </thead>
             <tbody>
                 ${model.lista().map(negociacao => {
-            total = negociacao.quantidade * negociacao.valor;
+            total = (negociacao.quantidade * negociacao.valor);
             calculado += total;
             registros++;
             return `
-                        <tr>
+                        <tr class="table-primary">
                             <td class="text-center">${this.formatar(negociacao.data)}</td>
                             <td class="text-center">${negociacao.quantidade}</td>
                             <td class="text-right">${formatarMoeda(negociacao.valor)}</td>
@@ -38,7 +38,7 @@ export class NegociacoesView extends View {
         }).join('')}
             </tbody>
             <tfoot>
-                <tr>
+                <tr class="table-primary">
                     <th colspan="2" class="text-left">Total Registro(s): ${registros}</th>
                     <th colspan="2" class="text-right">${formatarMoeda(calculado)}</th>
                 </tr>

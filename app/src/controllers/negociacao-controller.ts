@@ -31,6 +31,7 @@ export class NegociacaoController {
         /*
             Zé, você já viu isso?
         */
+
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
