@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { escapar } from '../decorators/escapar.js';
-import { formatarMoeda } from '../utils/funcoes.js';
+import { formatarData, formatarMoeda } from '../utils/funcoes.js';
 import { View } from './view.js';
 export class NegociacoesView extends View {
     template(model) {
@@ -29,7 +29,7 @@ export class NegociacoesView extends View {
             registros++;
             return `
                         <tr>
-                            <td class="text-center">${this.formatar(negociacao.data)}</td>
+                            <td class="text-center">${formatarData(negociacao.data)}</td>
                             <td class="text-center">${negociacao.quantidade}</td>
                             <td class="text-right">${formatarMoeda(negociacao.valor)}</td>
                             <td class="text-right">${formatarMoeda(total)}</td>
@@ -44,10 +44,6 @@ export class NegociacoesView extends View {
                 </tr>
             </tfoot>
         </table>`;
-    }
-    formatar(data) {
-        return new Intl.DateTimeFormat()
-            .format(data);
     }
 }
 __decorate([

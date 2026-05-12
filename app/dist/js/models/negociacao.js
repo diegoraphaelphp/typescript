@@ -1,4 +1,3 @@
-import { moedaBanco } from '../utils/funcoes.js';
 export class Negociacao {
     constructor(_data, quantidade, valor) {
         this._data = _data;
@@ -7,9 +6,9 @@ export class Negociacao {
     }
     static criaDe(dataString, quantidadeString, valorString) {
         const exp = /-/g;
-        const date = new Date(dataString.replace(exp, ','));
+        const date = new Date(dataString);
         const quantidade = parseInt(quantidadeString);
-        const valor = parseFloat(moedaBanco(valorString));
+        const valor = parseFloat(valorString);
         return new Negociacao(date, quantidade, valor);
     }
     get volume() {
@@ -27,7 +26,6 @@ export class Negociacao {
         `;
     }
     ehIgual(negociacao) {
-        console.log('comparando', this.paraTexto(), 'com', negociacao.paraTexto());
         return this.data.getDate() === negociacao.data.getDate()
             && this.data.getMonth() === negociacao.data.getMonth()
             && this.data.getFullYear() === negociacao.data.getFullYear();

@@ -5,6 +5,7 @@ import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
 import { NegociacoesService } from '../services/negociacoes-service.js';
+import { formatarMoeda, moedaBanco } from '../utils/funcoes.js';
 import { imprimir } from '../utils/imprimir.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
@@ -22,16 +23,29 @@ export class NegociacaoController {
     private negociacoesService = new NegociacoesService();
 
     constructor() {
+        const dados = localStorage.getItem('negociacoes');
+        console.log('dados', JSON.stringify(dados)); 
+
+        if (dados) {
+            const negociacoesSalvas = JSON.parse(dados);
+
+            negociacoesSalvas.forEach((negociacao: any) => {
+                this.negociacoes.adiciona(
+                    Negociacao.criaDe(
+                        negociacao._data,
+                        negociacao.quantidade,
+                        negociacao.valor
+                    )
+                );
+            });
+        }
+
         this.negociacoesView.update(this.negociacoes);
     }
 
     @inspect
     @logarTempoDeExecucao()
     public adiciona(): void {
-        /*
-            Zé, você já viu isso?
-        */
-
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
@@ -45,6 +59,13 @@ export class NegociacaoController {
         }
 
         this.negociacoes.adiciona(negociacao);
+        this.salvarLocalStorage();
+
+        localStorage.setItem(
+            'negociacoes',
+            JSON.stringify(this.negociacoes.lista())
+        );
+
         imprimir(negociacao, this.negociacoes);
         this.limparFormulario();
         this.atualizaView();
@@ -66,6 +87,12 @@ export class NegociacaoController {
                 for(let negociacao of negociacoesDeHoje) {
                     this.negociacoes.adiciona(negociacao);
                 }
+
+                this.salvarLocalStorage();
+                localStorage.setItem(
+                    'negociacoes',
+                    JSON.stringify(this.negociacoes.lista())
+                );
                 this.negociacoesView.update(this.negociacoes);
             });
     }
@@ -85,5 +112,14 @@ export class NegociacaoController {
     private atualizaView(): void {
         this.negociacoesView.update(this.negociacoes);
         this.mensagemView.update('Negociação adicionada com sucesso');
+    }
+
+    private salvarLocalStorage( ): void {
+        console.log('salvando localStorage', JSON.stringify(this.negociacoes.lista()));
+
+        localStorage.setItem(
+            'negociacoes',
+            JSON.stringify([...this.negociacoes.lista()])
+        );
     }
 }

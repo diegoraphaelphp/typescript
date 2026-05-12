@@ -24,3 +24,15 @@ const valor_moeda = document.querySelector('.valor-moeda');
 valor_moeda.addEventListener('keypress', (evento) => {
     mascaraMoeda(valor_moeda, evento);
 });
+const botaoLimpar = document.querySelector('#botao-limpar');
+if (botaoLimpar) {
+    console.log('botão limpar encontrado', botaoLimpar);
+    botaoLimpar.addEventListener('click', () => {
+        localStorage.clear();
+        console.log('limpando localStorage');
+        location.reload();
+    });
+}
+else {
+    throw Error('Botão limpar não foi encontrado');
+}

@@ -20,6 +20,14 @@ export class NegociacaoController {
         this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemView = new MensagemView('#mensagemView');
         this.negociacoesService = new NegociacoesService();
+        const dados = localStorage.getItem('negociacoes');
+        console.log('dados', JSON.stringify(dados));
+        if (dados) {
+            const negociacoesSalvas = JSON.parse(dados);
+            negociacoesSalvas.forEach((negociacao) => {
+                this.negociacoes.adiciona(Negociacao.criaDe(negociacao._data, negociacao.quantidade, negociacao.valor));
+            });
+        }
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
@@ -30,6 +38,8 @@ export class NegociacaoController {
             return;
         }
         this.negociacoes.adiciona(negociacao);
+        this.salvarLocalStorage();
+        localStorage.setItem('negociacoes', JSON.stringify(this.negociacoes.lista()));
         imprimir(negociacao, this.negociacoes);
         this.limparFormulario();
         this.atualizaView();
@@ -49,6 +59,8 @@ export class NegociacaoController {
             for (let negociacao of negociacoesDeHoje) {
                 this.negociacoes.adiciona(negociacao);
             }
+            this.salvarLocalStorage();
+            localStorage.setItem('negociacoes', JSON.stringify(this.negociacoes.lista()));
             this.negociacoesView.update(this.negociacoes);
         });
     }
@@ -65,6 +77,10 @@ export class NegociacaoController {
     atualizaView() {
         this.negociacoesView.update(this.negociacoes);
         this.mensagemView.update('Negociação adicionada com sucesso');
+    }
+    salvarLocalStorage() {
+        console.log('salvando localStorage', JSON.stringify(this.negociacoes.lista()));
+        localStorage.setItem('negociacoes', JSON.stringify([...this.negociacoes.lista()]));
     }
 }
 __decorate([

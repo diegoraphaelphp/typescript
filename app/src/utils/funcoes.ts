@@ -24,8 +24,14 @@ export function mascaraMoeda(campo: HTMLInputElement, evento: KeyboardEvent ): v
 }
 
 export function moedaBanco(valor: string): string {
-    console.log('valor', valor);
+    console.log('valoresxxxx', valor);
+
     return valor
         .replace(/\./g, '')
         .replace(',', '.');
+}
+
+export function formatarData(data: Date): string {
+    console.log('dataaaaa', data);
+    return data.toLocaleDateString();
 }

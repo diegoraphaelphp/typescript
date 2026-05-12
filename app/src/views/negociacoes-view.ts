@@ -1,6 +1,6 @@
 import { escapar } from '../decorators/escapar.js';
 import { Negociacoes } from '../models/negociacoes.js';
-import { formatarMoeda, mascaraMoeda, moedaBanco } from '../utils/funcoes.js';
+import { formatarData, formatarMoeda } from '../utils/funcoes.js';
 import { View } from './view.js';
 
 export class NegociacoesView extends View<Negociacoes> {
@@ -28,7 +28,7 @@ export class NegociacoesView extends View<Negociacoes> {
 
                     return `
                         <tr>
-                            <td class="text-center">${this.formatar(negociacao.data)}</td>
+                            <td class="text-center">${formatarData(negociacao.data)}</td>
                             <td class="text-center">${negociacao.quantidade}</td>
                             <td class="text-right">${formatarMoeda(negociacao.valor)}</td>
                             <td class="text-right">${formatarMoeda(total)}</td>
@@ -43,10 +43,5 @@ export class NegociacoesView extends View<Negociacoes> {
                 </tr>
             </tfoot>
         </table>`;
-    }
-
-    private formatar(data: Date): string {
-        return new Intl.DateTimeFormat()
-            .format(data);
     }
 }

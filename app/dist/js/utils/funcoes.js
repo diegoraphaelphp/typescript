@@ -19,8 +19,12 @@ export function mascaraMoeda(campo, evento) {
     evento.preventDefault();
 }
 export function moedaBanco(valor) {
-    console.log('valor', valor);
+    console.log('valoresxxxx', valor);
     return valor
         .replace(/\./g, '')
         .replace(',', '.');
+}
+export function formatarData(data) {
+    console.log('dataaaaa', data);
+    return data.toLocaleDateString();
 }
