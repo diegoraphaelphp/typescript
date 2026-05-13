@@ -24,14 +24,15 @@ export class NegociacoesView extends View {
             </thead>
             <tbody>
                 ${model.lista().map(negociacao => {
-            calculado += negociacao.volume;
+            total = (negociacao.quantidade * negociacao.valor);
+            calculado += total;
             registros++;
             return `
                         <tr>
                             <td class="text-center">${formatarData(negociacao.data)}</td>
                             <td class="text-center">${negociacao.quantidade}</td>
                             <td class="text-right">${formatarMoeda(negociacao.valor)}</td>
-                            <td class="text-right">${formatarMoeda(negociacao.volume)}</td>
+                            <td class="text-right">${formatarMoeda(total)}</td>
                         </tr>
                     `;
         }).join('')}

@@ -1,4 +1,3 @@
-import { moedaBanco } from '../utils/funcoes.js';
 export class Negociacao {
     constructor(_data, quantidade, valor) {
         this._data = _data;
@@ -12,7 +11,7 @@ export class Negociacao {
         return new Negociacao(date, quantidade, valorString);
     }
     get volume() {
-        return this.quantidade * Number(moedaBanco(this.valor));
+        return this.quantidade * this.valor;
     }
     get data() {
         const data = new Date(this._data.getTime());

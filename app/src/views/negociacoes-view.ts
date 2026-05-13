@@ -1,6 +1,6 @@
 import { escapar } from '../decorators/escapar.js';
 import { Negociacoes } from '../models/negociacoes.js';
-import { formatarData, formatarMoeda } from '../utils/funcoes.js';
+import { formatarData, formatarMoeda, moedaBanco } from '../utils/funcoes.js';
 import { View } from './view.js';
 
 export class NegociacoesView extends View<Negociacoes> {
@@ -23,16 +23,18 @@ export class NegociacoesView extends View<Negociacoes> {
             </thead>
             <tbody>
                 ${model.lista().map(negociacao => {
-                    // total = (negociacao.quantidade * negociacao.valor);
-                    calculado+= negociacao.volume;
+                    total     = (negociacao.quantidade * negociacao.valor);
+                    calculado+= total;
                     registros++;
+
+                    // console.log('total', negociacao.quantidade, negociacao.valor);
 
                     return `
                         <tr>
                             <td class="text-center">${formatarData(negociacao.data)}</td>
                             <td class="text-center">${negociacao.quantidade}</td>
                             <td class="text-right">${formatarMoeda(negociacao.valor)}</td>
-                            <td class="text-right">${formatarMoeda(negociacao.volume)}</td>
+                            <td class="text-right">${formatarMoeda(total)}</td>
                         </tr>
                     `;
                 }).join('')}

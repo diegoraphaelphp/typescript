@@ -24,7 +24,7 @@ function mascaraMoeda(campo: HTMLInputElement, evento: KeyboardEvent ): void {
 }
 
 function moedaBanco(valor: string): string {
-    console.log('moedaBanco', valor);
+    console.log('moedaBancox', valor);
     return valor.replace(/\./g, '').replace(',', '.');
 }
 

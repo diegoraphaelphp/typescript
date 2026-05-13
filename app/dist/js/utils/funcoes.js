@@ -19,7 +19,7 @@ function mascaraMoeda(campo, evento) {
     evento.preventDefault();
 }
 function moedaBanco(valor) {
-    console.log('moedaBanco', valor);
+    console.log('moedaBancox', valor);
     return valor.replace(/\./g, '').replace(',', '.');
 }
 function formatarData(data) {

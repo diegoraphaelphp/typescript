@@ -1,5 +1,5 @@
 import { Modelo } from '../interfaces/modelo.js';
-import { moedaBanco } from '../utils/funcoes.js';
+import { formatarMoeda, moedaBanco } from '../utils/funcoes.js';
 
 export class Negociacao implements Modelo<Negociacao> {
     constructor(
@@ -19,7 +19,7 @@ export class Negociacao implements Modelo<Negociacao> {
     }
 
     get volume(): number {
-        return this.quantidade * Number(moedaBanco(this.valor));
+        return this.quantidade * this.valor;
     }
 
     get data(): Date {

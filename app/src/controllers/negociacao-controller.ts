@@ -24,7 +24,7 @@ export class NegociacaoController {
 
     constructor() {
         const dados = localStorage.getItem('negociacoes');
-        // console.log('dados', JSON.stringify(dados)); 
+        console.log('xxxxdados', JSON.stringify(dados)); 
 
         if (dados) {
             const negociacoesSalvas = JSON.parse(dados);
@@ -46,30 +46,24 @@ export class NegociacaoController {
     // @inspect
     // @logarTempoDeExecucao()
     public adiciona(): void {
-        console.log('mmmaaaaa', this.inputValor.value);
+        // console.log('kkkkk', moedaBanco(this.inputValor.value));
 
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
-            this.inputValor.value
+            moedaBanco(this.inputValor.value)
         );
 
-        console.log('negociacao', negociacao);  
+        // console.log('negociacao', negociacao);  
 
         if (!this.ehDiaUtil(negociacao.data)) {
-            this.mensagemView
-                .update('Apenas negociações em dias úteis são aceitas');
+            this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
             return;
         }
 
         this.negociacoes.adiciona(negociacao);
         this.salvarLocalStorage();
-
-        localStorage.setItem(
-            'negociacoes',
-            JSON.stringify(this.negociacoes.lista())
-        );
-
+        localStorage.setItem('negociacoes', JSON.stringify(this.negociacoes.lista()));
         imprimir(negociacao, this.negociacoes);
         this.limparFormulario();
         this.atualizaView();
@@ -88,16 +82,17 @@ export class NegociacaoController {
                 });
             })
             .then(negociacoesDeHoje => {
-                for(let negociacao of negociacoesDeHoje) {
-                    this.negociacoes.adiciona(negociacao);
-                }
 
-                this.salvarLocalStorage();
-                localStorage.setItem(
-                    'negociacoes',
-                    JSON.stringify(this.negociacoes.lista())
-                );
-                this.negociacoesView.update(this.negociacoes);
+                if (negociacoesDeHoje !== null) {
+                    for(let negociacao of negociacoesDeHoje) {
+                        console.log('negociacaoDeHoje', negociacao);
+                        this.negociacoes.adiciona(negociacao);
+                    }
+
+                    this.salvarLocalStorage();
+                    localStorage.setItem('negociacoes', JSON.stringify(this.negociacoes.lista()));
+                    this.negociacoesView.update(this.negociacoes);
+                }
             });
     }
 
@@ -119,9 +114,7 @@ export class NegociacaoController {
     }
 
     private salvarLocalStorage( ): void {
-        localStorage.setItem(
-            'negociacoes',
-            JSON.stringify([...this.negociacoes.lista()])
-        );
+        console.log('salvarLocalStorage', JSON.stringify(this.negociacoes.lista()));
+        localStorage.setItem('negociacoes',JSON.stringify([...this.negociacoes.lista()]));
     }
 }

@@ -9,6 +9,7 @@ import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
 import { NegociacoesService } from '../services/negociacoes-service.js';
+import { moedaBanco } from '../utils/funcoes.js';
 import { imprimir } from '../utils/imprimir.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
@@ -19,6 +20,7 @@ export class NegociacaoController {
         this.mensagemView = new MensagemView('#mensagemView');
         this.negociacoesService = new NegociacoesService();
         const dados = localStorage.getItem('negociacoes');
+        console.log('xxxxdados', JSON.stringify(dados));
         if (dados) {
             const negociacoesSalvas = JSON.parse(dados);
             negociacoesSalvas.forEach((negociacao) => {
@@ -28,12 +30,9 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
-        console.log('mmmaaaaa', this.inputValor.value);
-        const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
-        console.log('negociacao', negociacao);
+        const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, moedaBanco(this.inputValor.value));
         if (!this.ehDiaUtil(negociacao.data)) {
-            this.mensagemView
-                .update('Apenas negociações em dias úteis são aceitas');
+            this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
             return;
         }
         this.negociacoes.adiciona(negociacao);
@@ -55,12 +54,15 @@ export class NegociacaoController {
             });
         })
             .then(negociacoesDeHoje => {
-            for (let negociacao of negociacoesDeHoje) {
-                this.negociacoes.adiciona(negociacao);
+            if (negociacoesDeHoje !== null) {
+                for (let negociacao of negociacoesDeHoje) {
+                    console.log('negociacaoDeHoje', negociacao);
+                    this.negociacoes.adiciona(negociacao);
+                }
+                this.salvarLocalStorage();
+                localStorage.setItem('negociacoes', JSON.stringify(this.negociacoes.lista()));
+                this.negociacoesView.update(this.negociacoes);
             }
-            this.salvarLocalStorage();
-            localStorage.setItem('negociacoes', JSON.stringify(this.negociacoes.lista()));
-            this.negociacoesView.update(this.negociacoes);
         });
     }
     ehDiaUtil(data) {
@@ -78,6 +80,7 @@ export class NegociacaoController {
         this.mensagemView.update('Negociação adicionada com sucesso');
     }
     salvarLocalStorage() {
+        console.log('salvarLocalStorage', JSON.stringify(this.negociacoes.lista()));
         localStorage.setItem('negociacoes', JSON.stringify([...this.negociacoes.lista()]));
     }
 }
