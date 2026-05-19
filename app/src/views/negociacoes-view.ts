@@ -27,8 +27,6 @@ export class NegociacoesView extends View<Negociacoes> {
                     calculado+= total;
                     registros++;
 
-                    // console.log('total', negociacao.quantidade, negociacao.valor);
-
                     return `
                         <tr>
                             <td class="text-center">${formatarData(negociacao.data)}</td>

@@ -24,7 +24,7 @@ export class NegociacaoController {
 
     constructor() {
         const dados = localStorage.getItem('negociacoes');
-        console.log('xxxxdados', JSON.stringify(dados)); 
+        // console.log('xxxxdados', JSON.stringify(dados)); 
 
         if (dados) {
             const negociacoesSalvas = JSON.parse(dados);
@@ -82,7 +82,6 @@ export class NegociacaoController {
                 });
             })
             .then(negociacoesDeHoje => {
-
                 if (negociacoesDeHoje !== null) {
                     for(let negociacao of negociacoesDeHoje) {
                         console.log('negociacaoDeHoje', negociacao);

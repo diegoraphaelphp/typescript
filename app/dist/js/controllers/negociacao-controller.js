@@ -20,7 +20,6 @@ export class NegociacaoController {
         this.mensagemView = new MensagemView('#mensagemView');
         this.negociacoesService = new NegociacoesService();
         const dados = localStorage.getItem('negociacoes');
-        console.log('xxxxdados', JSON.stringify(dados));
         if (dados) {
             const negociacoesSalvas = JSON.parse(dados);
             negociacoesSalvas.forEach((negociacao) => {
