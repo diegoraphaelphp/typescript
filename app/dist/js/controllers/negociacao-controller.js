@@ -55,7 +55,6 @@ export class NegociacaoController {
             .then(negociacoesDeHoje => {
             if (negociacoesDeHoje !== null) {
                 for (let negociacao of negociacoesDeHoje) {
-                    console.log('negociacaoDeHoje', negociacao);
                     this.negociacoes.adiciona(negociacao);
                 }
                 this.salvarLocalStorage();
@@ -79,7 +78,6 @@ export class NegociacaoController {
         this.mensagemView.update('Negociação adicionada com sucesso');
     }
     salvarLocalStorage() {
-        console.log('salvarLocalStorage', JSON.stringify(this.negociacoes.lista()));
         localStorage.setItem('negociacoes', JSON.stringify([...this.negociacoes.lista()]));
     }
 }

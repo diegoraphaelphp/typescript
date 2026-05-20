@@ -1,22 +1,20 @@
 import { domInjector } from '../decorators/dom-injector.js';
-import { inspect } from '../decorators/inspect.js';
-import { logarTempoDeExecucao } from '../decorators/logar-tempo-de-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
 import { NegociacoesService } from '../services/negociacoes-service.js';
-import { formatarMoeda, moedaBanco } from '../utils/funcoes.js';
+import { moedaBanco } from '../utils/funcoes.js';
 import { imprimir } from '../utils/imprimir.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 
 export class NegociacaoController {
     @domInjector('#data')
-    private inputData: HTMLInputElement;
+    private inputData!: HTMLInputElement;
     @domInjector('#quantidade')
-    private inputQuantidade: HTMLInputElement;
+    private inputQuantidade!: HTMLInputElement;
     @domInjector('#valor')
-    private inputValor: HTMLInputElement;
+    private inputValor!: HTMLInputElement;
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
@@ -84,7 +82,7 @@ export class NegociacaoController {
             .then(negociacoesDeHoje => {
                 if (negociacoesDeHoje !== null) {
                     for(let negociacao of negociacoesDeHoje) {
-                        console.log('negociacaoDeHoje', negociacao);
+                        // console.log('negociacaoDeHoje', negociacao);
                         this.negociacoes.adiciona(negociacao);
                     }
 
@@ -113,7 +111,7 @@ export class NegociacaoController {
     }
 
     private salvarLocalStorage( ): void {
-        console.log('salvarLocalStorage', JSON.stringify(this.negociacoes.lista()));
+        // console.log('salvarLocalStorage', JSON.stringify(this.negociacoes.lista()));
         localStorage.setItem('negociacoes',JSON.stringify([...this.negociacoes.lista()]));
     }
 }

@@ -1,4 +1,5 @@
 function formatarMoeda(valor: number): string {
+    valor = parseFloat(valor.toString());
     return valor.toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL'

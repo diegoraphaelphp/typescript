@@ -1,5 +1,4 @@
 import { Modelo } from '../interfaces/modelo.js';
-import { formatarMoeda, moedaBanco } from '../utils/funcoes.js';
 
 export class Negociacao implements Modelo<Negociacao> {
     constructor(
